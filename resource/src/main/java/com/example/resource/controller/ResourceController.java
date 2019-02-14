@@ -54,12 +54,15 @@ public class ResourceController {
         return new InstanceDTO(serviceId, DEFAULT_HOST, DEFAULT_PORT);
     }
 
+    // 根据访问令牌获取用户认证信息的接口。client 服务在访问资源服务器时会默认在请求中携带访问令牌
     @RequestMapping(value = "/user")
     public Principal userInfo(ServletRequest req) throws IOException {
 
         final HttpServletRequest request = (HttpServletRequest) req;
+        // 通过BearerTokenExtractor从请求中获取访问令牌
         Authentication authentication = tokenExtractor.extract(request);
         String token = (String) authentication.getPrincipal();
+        // 使用ResourceServerTokenServices加载访问令牌对应的OAuth2Authentication信息
         return tokenServices.loadAuthentication(token);
 
     }

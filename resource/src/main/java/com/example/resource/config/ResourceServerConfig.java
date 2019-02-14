@@ -84,6 +84,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/user/**").authenticated() // /user/** 端点的访问必须要验证后
+                .antMatchers("/user/**").access("hasRole('ADMIN') or hasAuthority('See_Info')") // /user/** 端点的访问需要具备ADMIN的身份或者具备See_Info的权限
                 .and()
                 .exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
     }
