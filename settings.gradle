@@ -1,0 +1,5 @@
+rootProject.name = 'oauth2-example'
+include "authorization"
+include "client"
+include "eureka"
+include "resource"
